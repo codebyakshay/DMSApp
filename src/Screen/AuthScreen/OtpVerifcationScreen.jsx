@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { OtpInput } from "react-native-otp-entry";
 import { Button } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
+import { styles } from "./OtpVerifyStyles";
 
 export default function OtpVerifcationScreen({ navigation }) {
   const route = useRoute();
@@ -13,6 +14,12 @@ export default function OtpVerifcationScreen({ navigation }) {
     console.log("OTP Submitted:", value);
     console.log("Mobile", mobileNumber);
   };
+
+  function handleResendOtp() {
+    return navigation.navigate("LoginScreen", {
+      resend: true,
+    });
+  }
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -27,7 +34,7 @@ export default function OtpVerifcationScreen({ navigation }) {
           focusColor="#8ac5ffff"
           onTextChange={(text) => setOtp(text)}
           onFilled={handleOtpFilled}
-          keyboardType="numaric"
+          keyboardType="numeric"
           theme={{
             pinCodeContainerStyle: {
               borderWidth: 0.5,
@@ -42,62 +49,18 @@ export default function OtpVerifcationScreen({ navigation }) {
       </View>
 
       {/* BTNS CONTAINER */}
+      <View style={styles.infoTextContainer}>
+        <Text style={{ color: "grey", textAlign: "center" }}>
+          if you have not received the otp, please try to recent it{" "}
+        </Text>
+      </View>
       <View style={styles.buttonContainer}>
-        <View style={{ width: "45%" }}>
-          <Button
-            mode="contained-tonal"
-            onPress={() => {
-              return navigation.navigate("LoginScreen", {
-                resend: true,
-              });
-            }}
-          >
+        <View style={{ width: "90%" }}>
+          <Button mode="contained-tonal" onPress={() => handleResendOtp()}>
             Resend otp
-          </Button>
-        </View>
-
-        <View style={{ width: "45%" }}>
-          <Button mode="contained" onPress={() => {}}>
-            Verify
           </Button>
         </View>
       </View>
     </SafeAreaView>
   );
 }
-
-const { width, height } = Dimensions.get("window");
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    padding: width * 0.05,
-    backgroundColor: "#f9f9f9",
-  },
-
-  textInputContainer: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: width * 0.04,
-  },
-  infoText: {
-    fontSize: width * 0.055,
-    fontWeight: "600",
-    textAlign: "center",
-    marginBottom: height * 0.03,
-  },
-  title: {
-    fontSize: width * 0.055,
-    fontWeight: "600",
-    textAlign: "center",
-    marginBottom: height * 0.03,
-  },
-
-  buttonContainer: {
-    flex: 3,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingHorizontal: width * 0.02,
-  },
-});

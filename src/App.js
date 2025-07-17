@@ -3,16 +3,19 @@ import { NavigationContainer } from "@react-navigation/native";
 import LocalNavigation from "./Navigation/LocalNavigation/LocalNavigation";
 import AuthNavigation from "./Navigation/AuthNavigation/AuthNavigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PaperProvider } from "react-native-paper";
 
 // Simulated token (replace with token state from AsyncStorage or Redux later)
-const token = "";
+const token = null;
 
 export default function App() {
   return (
     <NavigationContainer>
-      <SafeAreaProvider>
-        {token ? <LocalNavigation /> : <AuthNavigation />}
-      </SafeAreaProvider>
+      <PaperProvider>
+        <SafeAreaProvider>
+          <LocalNavigation />
+        </SafeAreaProvider>
+      </PaperProvider>
     </NavigationContainer>
   );
 }

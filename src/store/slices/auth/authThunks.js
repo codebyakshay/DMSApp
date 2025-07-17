@@ -35,15 +35,21 @@ export const verifyOTP = createAsyncThunk(
   "auth/verifyOTP",
   async ({ mobile, otp }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await validateOTP(mobile, otp);
-      if (response.status && response.token) {
-        dispatch(setAuthToken(response.token));
-        await saveToken(response.token);
-        return response.token;
+      // send the object with correct keys
+      const payload = { mobile_number: mobile, otp };
+
+      const response = await validateOTP(payload);
+
+      if (response.status && response.data?.token) {
+        const { token } = response.data;
+        dispatch(setAuthToken(token));
+        await saveToken(token);
+        return token;
       } else {
         return rejectWithValue(response.data || "Invalid OTP");
       }
     } catch (err) {
+      console.error("OTP verification error:", err);
       return rejectWithValue(err.message || "OTP verification failed");
     }
   }

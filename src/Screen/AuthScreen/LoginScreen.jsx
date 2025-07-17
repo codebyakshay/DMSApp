@@ -22,7 +22,7 @@ import { useLogin } from "@/hooks/useLogin";
 export default function LoginScreen({ navigation }) {
   const route = useRoute();
   const inpRef = useRef();
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("7987522152");
   const { loginWithMobile } = useLogin();
 
   const { loading, error } = useSelector((state) => state.auth);

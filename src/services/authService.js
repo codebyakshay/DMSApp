@@ -7,10 +7,16 @@ export const generateOTP = async (mobile) => {
   return res.data;
 };
 
-export const validateOTP = async (mobile, otp) => {
-  const res = await api.post(ENDPOINTS.VALIDATE_OTP, {
-    mobile_number: mobile,
-    otp,
-  });
-  return res.data;
+export const validateOTP = async ({ mobile_number, otp }) => {
+  try {
+    const res = await api.post(ENDPOINTS.VALIDATE_OTP, {
+      mobile_number,
+      otp,
+    });
+
+    return res.data;
+  } catch (err) {
+    console.error("validateOTP ERROR:", err.response?.data || err.message); // 👈 Show error details
+    throw err;
+  }
 };

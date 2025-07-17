@@ -5,14 +5,32 @@ import { Button } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
 import { styles } from "./OtpVerifyStyles";
 
+import { useDispatch, useSelector } from "react-redux";
+import { verifyOTP } from "@/store/slices/auth/authThunks";
+import { showToast } from "@/utils/showToast";
+
 export default function OtpVerifcationScreen({ navigation }) {
   const route = useRoute();
   const { mobileNumber } = route?.params;
   const [otp, setOtp] = useState("");
+  const { loading } = useSelector((state) => state.auth);
 
-  const handleOtpFilled = (value) => {
-    console.log("OTP Submitted:", value);
-    console.log("Mobile", mobileNumber);
+  const dispatch = useDispatch();
+
+  const handleOtpFilled = async (enteredOtp) => {
+    const resultAction = await dispatch(
+      verifyOTP({ mobile: mobileNumber, otp: enteredOtp })
+    );
+
+    if (verifyOTP.fulfilled.match(resultAction)) {
+      showToast("success", "Verified", "You're now logged in.");
+    } else {
+      showToast(
+        "error",
+        "Verification Failed",
+        resultAction.payload || "Invalid OTP"
+      );
+    }
   };
 
   function handleResendOtp() {
@@ -56,7 +74,11 @@ export default function OtpVerifcationScreen({ navigation }) {
       </View>
       <View style={styles.buttonContainer}>
         <View style={{ width: "90%" }}>
-          <Button mode="contained-tonal" onPress={() => handleResendOtp()}>
+          <Button
+            mode="contained-tonal"
+            disabled={loading}
+            onPress={() => handleResendOtp()}
+          >
             Resend otp
           </Button>
         </View>

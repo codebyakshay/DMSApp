@@ -1,3 +1,5 @@
+// src/Navigation/LocalNavigation/LocalNavigation.js
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "@/Screen/AuthScreen/LoginScreen";

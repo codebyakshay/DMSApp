@@ -1,28 +1,54 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import LocalNavigation from "./Navigation/LocalNavigation/LocalNavigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { PaperProvider } from "react-native-paper";
-import { Provider as ReduxProvider } from "react-redux";
+import { Provider as ReduxProvider, useDispatch } from "react-redux";
 import Toast from "react-native-toast-message";
 import { store } from "./store/store";
 import { toastConfig } from "../toastConfig";
+import AuthNavigation from "./Navigation/AuthNavigation/AuthNavigation";
+import LocalNavigation from "./Navigation/LocalNavigation/LocalNavigation";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getToken } from "./utils/tokenStorage";
+import { setAuthToken } from "./store/slices/auth/authSlice";
 
-// Simulated token (replace with token state from AsyncStorage or Redux later)
-const token = null;
+function MainAppNavigator() {
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-export default function App() {
+  useEffect(() => {
+    const restoreAuth = async () => {
+      const token = await getToken();
+      if (token) {
+        dispatch(setAuthToken(token));
+      }
+    };
+
+    restoreAuth();
+  }, []);
+
+  return isAuthenticated ? <AuthNavigation /> : <LocalNavigation />;
+}
+
+function Root() {
   return (
     <NavigationContainer>
       <PaperProvider>
         <SafeAreaProvider>
-          <ReduxProvider store={store}>
-            <LocalNavigation />
-            <Toast config={toastConfig} />
-          </ReduxProvider>
+          <MainAppNavigator />
+          <Toast config={toastConfig} />
         </SafeAreaProvider>
       </PaperProvider>
     </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <ReduxProvider store={store}>
+      <Root />
+    </ReduxProvider>
   );
 }
 

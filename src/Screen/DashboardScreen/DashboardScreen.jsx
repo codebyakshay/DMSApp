@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { getToken } from "@/utils/tokenStorage";
 
 const DashboardScreen = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>DashboardScreen</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

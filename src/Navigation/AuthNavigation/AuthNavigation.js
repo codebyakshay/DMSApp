@@ -1,7 +1,8 @@
+// src/Navigation/AuthNavigation/AuthNavigation.js
+
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "@/Screen/AuthScreen/LoginScreen";
 import DashboardScreen from "@/Screen/DashboardScreen/DashboardScreen";
 const Stack = createNativeStackNavigator();
 

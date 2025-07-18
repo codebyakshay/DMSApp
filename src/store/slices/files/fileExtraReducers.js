@@ -1,3 +1,5 @@
+/// src/store/slices/files/fileExtraReducers.js
+
 import { uploadDocumentThunk, fetchDocumentsThunk } from "./FileThunks";
 
 export default function fileExtraReducers(builder) {
@@ -7,7 +9,7 @@ export default function fileExtraReducers(builder) {
       state.uploadStatus = "loading";
       state.uploadError = null;
     })
-    .addCase(uploadDocumentThunk.fulfilled, (state) => {
+    .addCase(uploadDocumentThunk.fulfilled, (state, action) => {
       state.uploadStatus = "succeeded";
       const newDoc = action.payload?.data;
       if (newDoc) {

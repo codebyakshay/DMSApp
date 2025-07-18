@@ -14,7 +14,7 @@ export default function DashboardScreen() {
   const navigation = useNavigation();
   const inpRef = useRef();
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   ///
 
   const [fromDate, setFromDate] = useState(new Date());
@@ -45,7 +45,7 @@ export default function DashboardScreen() {
         >
           <View style={styles.datepickerContainerForSearch}>
             <Button mode="outlined" onPress={() => setShowFrom(true)}>
-              {fromDate.toDateString()}
+              From: {fromDate.toDateString()}
             </Button>
             {showFrom && (
               <DateTimePicker
@@ -60,7 +60,7 @@ export default function DashboardScreen() {
             )}
 
             <Button mode="outlined" onPress={() => setShowTo(true)} style={{}}>
-              {toDate.toDateString()}
+              To: {toDate.toDateString()}
             </Button>
             {showTo && (
               <DateTimePicker

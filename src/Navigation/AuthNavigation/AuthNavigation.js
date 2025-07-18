@@ -24,7 +24,6 @@ export default function AuthNavigation() {
         name="FileUploadScreen"
         component={FileUploadScreen}
         options={{
-          presentation: "modal",
           headerShown: true,
           title: "Upload File",
         }}

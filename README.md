@@ -11,6 +11,14 @@ Watch the app demo here:
 
 ---
 
+## 📱 APK Download
+
+Download the production APK here:
+
+👉 [Download APK from Google Drive](https://drive.google.com/drive/folders/16moKZz0meIgMeEuPrwOwMZ_hh04t6Y_P?usp=drive_link)
+
+---
+
 ## 🚀 Features
 
 - 🔐 OTP-based authentication flow

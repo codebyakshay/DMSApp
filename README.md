@@ -64,22 +64,6 @@ Scan the QR code using Expo Go (iOS or Android).
 
 ---
 
-## 🧱 Project Structure
-
-```
-src/
-├── Screen/
-│   ├── AuthScreen/
-│   ├── FileUploadScreen/
-│   ├── DashboardScreen/
-│   └── SplashScreen/
-├── services/               # API layer (Axios + Token setup)
-├── store/                  # Redux slices and thunks
-└── utils/                  # Token storage
-```
-
----
-
 ## 💡 Development Practices
 
 - ✅ Incremental Git commits with meaningful messages

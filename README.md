@@ -98,5 +98,4 @@ src/
 If you have any questions or feedback:
 
 **Akshay Kumar Sinha**  
-📱 +91 79875 22152  
 📧 aksinha8989@gmail.com

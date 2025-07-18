@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DashboardScreen from "@/Screen/DashboardScreen/DashboardScreen";
+import FileUploadScreen from "@/Screen/FileUploadScreen/FileUploadScreen";
 const Stack = createNativeStackNavigator();
 
 export default function AuthNavigation() {
@@ -14,7 +15,18 @@ export default function AuthNavigation() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Dashboard" component={DashboardScreen} />
+      <Stack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="FileUploadScreen"
+        component={FileUploadScreen}
+        options={{
+          presentation: "fullScreenModal",
+        }}
+      />
     </Stack.Navigator>
   );
 }

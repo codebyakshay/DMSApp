@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "document_date": "2024-02-01T00:00:00",
+            "document_id": 25,
+            "document_remarks": "test",
+            "file_url": "https://allsoft-consulting.s3.ap-south-1.amazonaws.com/fileUploads/2024-02-26/4affc8c4-e241-4ed2-9bf2-370ccce4c398.jpg?X-Amz-Expires=1800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYDPL5BFOBQHG4D5W%2F20250717%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20250717T164119Z&X-Amz-SignedHeaders=host&X-Amz-Signature=d0862de6ece9a18c0deb243e26be633671fec022764635330f232ba084268dec",
+            "major_head": "Professional",
+            "minor_head": "IT",
+            "row_num": 1,
+            "total_count": 136,
+            "upload_time": "2024-02-26T16:14:33",
+            "uploaded_by": "Sagar"
+        }
+    ],
+    "recordsFiltered": 136,
+    "recordsTotal": 136,
+    "status": true
+}

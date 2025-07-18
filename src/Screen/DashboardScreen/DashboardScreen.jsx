@@ -6,50 +6,93 @@ import FileCard from "@/components/FileCard";
 import { Button, Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { dismissKeyboard } from "@/utils/dismissKeyboard";
+import { styles } from "./styles";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function DashboardScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { documents, fetchStatus } = useSelector((state) => state.file);
-
+  const inpRef = useRef();
   const [searchQuery, setSearchQuery] = useState("");
-  const searchRef = useRef();
 
-  useEffect(() => {
-    dispatch(fetchDocumentsThunk({ start: 0, length: 1 }));
-  }, [dispatch]);
+  ///
 
-  useEffect(() => {
-    if (fetchStatus === "succeeded") {
-      // console.log("Fetched documents:", documents);
-    }
-  }, [fetchStatus, documents]);
+  const [fromDate, setFromDate] = useState(new Date());
+  const [toDate, setToDate] = useState(new Date());
+  const [showFrom, setShowFrom] = useState(false);
+  const [showTo, setShowTo] = useState(false);
 
-  // console.log(documents);
-
-  const handleScreenPressOutsideField = () => dismissKeyboard(searchRef);
+  const handleScreenPressOutsideField = () => dismissKeyboard(inpRef);
 
   return (
-    <TouchableWithoutFeedback onPress={handleScreenPressOutsideField}>
-      <View style={{ flex: 1, padding: 12 }}>
+    <TouchableWithoutFeedback
+      onPress={() => handleScreenPressOutsideField()}
+      accessible={false}
+    >
+      <View style={{ flex: 1, padding: 24 }}>
         <Searchbar
           placeholder="Search"
           onChangeText={setSearchQuery}
           value={searchQuery}
-          ref={searchRef}
+          onFocus={() => setIsSearchFocused(true)}
+          onBlur={() => setIsSearchFocused(false)}
         />
 
-        <Button
-          onPress={() => navigation.navigate("FileUploadScreen")}
-          mode="contained-tonal"
-          icon="plus"
-          style={{ marginTop: 12 }}
+        <View
+          style={{
+            marginVertical: 10,
+          }}
         >
-          Upload
-        </Button>
+          <View style={styles.datepickerContainerForSearch}>
+            <Button mode="outlined" onPress={() => setShowFrom(true)}>
+              {fromDate.toDateString()}
+            </Button>
+            {showFrom && (
+              <DateTimePicker
+                value={fromDate}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  setShowFrom(false);
+                  if (selectedDate) setFromDate(selectedDate);
+                }}
+              />
+            )}
+
+            <Button mode="outlined" onPress={() => setShowTo(true)} style={{}}>
+              {toDate.toDateString()}
+            </Button>
+            {showTo && (
+              <DateTimePicker
+                value={toDate}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  setShowTo(false);
+                  if (selectedDate) setToDate(selectedDate);
+                }}
+              />
+            )}
+          </View>
+        </View>
+
+        <View
+          style={{
+            justifyContent: "flex-end",
+            flex: 1,
+            marginBottom: 26,
+          }}
+        >
+          <Button
+            onPress={() => navigation.navigate("FileUploadScreen")}
+            mode="contained-tonal"
+            icon="plus"
+            style={{ marginTop: 12 }}
+          >
+            Upload
+          </Button>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({});

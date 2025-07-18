@@ -24,7 +24,9 @@ export default function AuthNavigation() {
         name="FileUploadScreen"
         component={FileUploadScreen}
         options={{
-          presentation: "fullScreenModal",
+          presentation: "modal",
+          headerShown: true,
+          title: "Upload File",
         }}
       />
     </Stack.Navigator>
